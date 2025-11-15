@@ -1,11 +1,25 @@
-{ pkgs, ... }: {
-  # https://nix.dev/reference/nix-project-templates#dev-nix
-  # To add a new package to your environment, add it to the `packages` list below.
-  # To see all available packages, run `nix search nixpkgs <search term>`.
+
+{ pkgs, ... }:
+
+{
+  # Which nixpkgs channel to use.
+  channel = "unstable"; # or "23.05", "22.11", etc.
+
+  # Configure the project environment.
+  env = {
+    # NODE_HOME = "${pkgs.nodejs}/bin/node";
+  };
+
+  # Packages to make available in the environment.
   packages = [
-    pkgs.nodejs_20 # For Next.js development
+    pkgs.nodejs_20 # Specify Node.js version
     pkgs.nodePackages.pnpm
-    pkgs.docker # CRITICAL: Installs the Docker CLI and daemon
-    pkgs.google-cloud-sdk # Useful for gCloud commands
+    pkgs.bash-interactive
+    pkgs.docker # Add docker package
   ];
+
+  # Scripts to run when the environment is activated.
+  scripts = {
+    # "my-script" = "echo 'Hello, world!'";
+  };
 }
