@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useAuth } from '@/hooks/use-auth';
@@ -6,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Swords } from 'lucide-react';
 
+// This page is now largely deprecated in favor of the contextual sign-in button
+// in the header. We keep it as a fallback or for direct navigation.
 export default function LoginPage() {
   const { user, loading, signInWithGoogle } = useAuth();
   const router = useRouter();
@@ -18,7 +21,7 @@ export default function LoginPage() {
   }, [user, loading, router]);
 
   // While checking for user state, show a loading indicator.
-  if (loading) {
+  if (loading || (!loading && user)) {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-background">
             <div>Loading...</div>
@@ -26,8 +29,6 @@ export default function LoginPage() {
     );
   }
   
-  // If user is already defined, this component will redirect,
-  // so we can render the sign-in page.
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-8 rounded-lg border bg-card p-8 text-center shadow-lg">

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -8,9 +9,6 @@ export default function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // REMOVED: The useEffect that forced a redirect to /login.
-  // The application is now public by default.
-
   return (
     <SidebarProvider>
       <SidebarNav />
