@@ -1,8 +1,7 @@
 
 'use client';
 
-import { useState, useTransition } from 'react';
-import { generateCompetencyBuildingEvents, GenerateCompetencyBuildingEventsOutput } from '@/ai/flows/generate-competency-building-events';
+import { useCbeStore } from '@/store/cbe-store';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -17,17 +16,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/
 const questImages = PlaceHolderImages.filter((img) => img.id.startsWith('quest'));
 
 export function CompetencyEvents() {
-  const [isPending, startTransition] = useTransition();
-  const [events, setEvents] = useState<GenerateCompetencyBuildingEventsOutput | null>(null);
+  const { events, isPending, generateEvents } = useCbeStore();
 
   const handleGenerateEvents = () => {
-    startTransition(async () => {
-      const result = await generateCompetencyBuildingEvents({
-        userSkills: ['Python', 'Data Analysis'],
-        learningGoals: 'Become a proficient data scientist with a focus on machine learning.',
-        professionTag: 'Data Scientist',
-      });
-      setEvents(result);
+    generateEvents({
+      userSkills: ['Python', 'Data Analysis'],
+      learningGoals: 'Become a proficient data scientist with a focus on machine learning.',
+      professionTag: 'Data Scientist',
     });
   };
 
@@ -69,7 +64,7 @@ export function CompetencyEvents() {
                   <CardContent><Skeleton className="h-20 w-full" /></CardContent>
                 </Card>
               ))}
-              {events?.events.map((event, index) => {
+              {events?.map((event, index) => {
                 const questImage = questImages[index % questImages.length];
                 return (
                   <Card key={index} className="flex flex-col overflow-hidden transition-transform hover:scale-105 hover:shadow-lg">
@@ -120,7 +115,7 @@ export function CompetencyEvents() {
                 <TableRow>
                   <TableHead>Objective</TableHead>
                   <TableHead className="hidden sm:table-cell">Target Skill</TableHead>
-                  <TableHead className="hidden md:table-cell">Assessment</TableHead>
+                  <TableHead>Assessment</TableHead>
                   <TableHead className="text-right">Action</TableHead>
                 </TableRow>
               </TableHeader>
@@ -129,11 +124,11 @@ export function CompetencyEvents() {
                     <TableRow key={i}>
                         <TableCell><Skeleton className="h-5 w-48" /></TableCell>
                         <TableCell className="hidden sm:table-cell"><Skeleton className="h-5 w-24" /></TableCell>
-                        <TableCell className="hidden md:table-cell"><Skeleton className="h-5 w-36" /></TableCell>
+                        <TableCell><Skeleton className="h-5 w-36" /></TableCell>
                         <TableCell className="text-right"><Skeleton className="h-8 w-20 ml-auto" /></TableCell>
                     </TableRow>
                 ))}
-                {events?.events.map((event, index) => (
+                {events?.map((event, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{event.Academic_Objective}</TableCell>
                     <TableCell className="hidden sm:table-cell">
@@ -141,7 +136,7 @@ export function CompetencyEvents() {
                         {event.Target_Skill}
                       </Badge>
                     </TableCell>
-                    <TableCell className="hidden md:table-cell text-muted-foreground text-xs">{event.Assessment_Method}</TableCell>
+                    <TableCell className="text-muted-foreground text-xs">{event.Assessment_Method}</TableCell>
                     <TableCell className="text-right">
                       <Button size="sm" variant="outline">Start</Button>
                     </TableCell>
