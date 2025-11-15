@@ -1,0 +1,14 @@
+# Ignore environment files containing secrets
+.env
+.env*.local
+
+# Ignore node modules (we install fresh inside the container)
+node_modules
+
+# Ignore common build and development artifacts
+.next
+.git
+.gitignore
+npm-debug.log
+README.md
+Dockerfile
