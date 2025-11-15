@@ -2,8 +2,6 @@
 
 import { useEffect, useState, useContext, createContext, ReactNode } from 'react';
 import {
-  getAuth,
-  onAuthStateChanged,
   User,
   GoogleAuthProvider,
   signInWithRedirect,
@@ -33,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
     });
@@ -49,8 +47,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       })
       .catch((error) => {
-        // This can happen if the user closes the sign-in window.
-        // It's usually not a critical error to display.
         console.error('Error getting redirect result:', error);
       });
   }, [router]);
