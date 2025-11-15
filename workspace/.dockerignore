@@ -1,0 +1,15 @@
+# Ignore environment files
+.env
+.env*.local
+
+# Ignore git and docker files
+.git
+.gitignore
+Dockerfile
+.dockerignore
+
+# Ignore node modules and build artifacts
+node_modules
+.next
+npm-debug.log*
+README.md
