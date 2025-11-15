@@ -1,14 +1,24 @@
-# Ignore environment files containing secrets
-.env
-.env*.local
-
-# Ignore node modules (we install fresh inside the container)
+# Ignore node_modules and local development artifacts
 node_modules
-
-# Ignore common build and development artifacts
 .next
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore environment files and sensitive information
+.env
+.env.local
+.env.*.local
+
+# Ignore Docker and VSCode files
+Dockerfile
+.dockerignore
+.vscode/
+
+# Ignore Git files
 .git
 .gitignore
-npm-debug.log
-README.md
-Dockerfile
+
+# Ignore build output
+dist
+build

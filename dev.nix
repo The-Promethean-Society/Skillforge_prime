@@ -1,20 +1,17 @@
-{ pkgs, ... }: {
-  # https://devenv.sh/basics/
-  # https://devenv.sh/packages/
-  # https://devenv.sh/scripts/
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  # Add the Docker package to the environment
   packages = [
-    pkgs.nodejs_20,
-    pkgs.patch-package,
     pkgs.docker
+    # Include other necessary development tools here
+    pkgs.nodejs-20_x
+    pkgs.patch-package
   ];
 
-  # https://devenv.sh/languages/
-  languages.javascript.enable = true;
-
-  enterShell = ''
-    # Is the first time we enter the shell?
-    if [ ! -d "node_modules" ]; then
-      npm install
-    fi
+  # Setup necessary environment variables or initialization commands
+  shellHook = ''
+    # This section can be used to start services or set variables.
+    echo "Nix environment with Docker is ready."
   '';
 }

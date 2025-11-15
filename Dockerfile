@@ -1,40 +1,37 @@
-# --- 1. Base Stage: Install Dependencies and Build ---
-# Use a specific Node version suitable for Next.js 15
-FROM node:20-slim AS builder
-
-# Set the working directory inside the container
+# Stage 1: Install dependencies
+FROM node:20-slim AS deps
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json package-lock.json ./
-# Install both dev and prod dependencies needed for the build step
-RUN npm install
+# Copy package.json and lockfile and install dependencies
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Copy application source code
+# Stage 2: Build the application
+FROM node:20-slim AS builder
+WORKDIR /app
+
+# Copy dependencies from the previous stage
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build the Next.js application
-# This command runs the production build that Next.js will serve
 RUN npm run build
 
-# --- 2. Production Runtime Stage: Lean Image ---
-# Use a separate, minimal Node image for the final runtime image
+# Stage 3: Production image
 FROM node:20-slim AS runner
-
-# Set the environment to production and ensure Node modules are in PATH
-ENV NODE_ENV=production
 WORKDIR /app
 
-# Copy only the necessary files from the builder stage
-# This includes .next directory, public files, and node_modules (production only)
+# Set environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Copy the built app from the builder stage
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-# Expose the port Next.js will listen on (Cloud Run defaults to 8080)
-EXPOSE 3000 
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Cloud Run deployment will inject necessary environment variables (like FIREBASE_API_KEY).
-# The entrypoint runs the production start script.
-CMD ["npm", "start"]
+# Set the entrypoint to start the app
+CMD ["node", "server.js"]
