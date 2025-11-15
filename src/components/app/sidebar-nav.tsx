@@ -67,7 +67,7 @@ export function SidebarNav() {
               isActive={isActive('/competencies')}
               tooltip="Competencies"
             >
-              <Link href="/dashboard">
+              <Link href="/competencies">
                 <BookOpen />
                 <span>Competencies</span>
               </Link>
@@ -79,7 +79,7 @@ export function SidebarNav() {
               isActive={isActive('/tutor')}
               tooltip="AI Tutor"
             >
-              <Link href="/dashboard">
+              <Link href="/tutor">
                 <Bot />
                 <span>AI Tutor</span>
               </Link>
@@ -91,7 +91,7 @@ export function SidebarNav() {
               isActive={isActive('/settings')}
               tooltip="Settings"
             >
-              <Link href="/dashboard">
+              <Link href="/settings">
                 <Settings />
                 <span>Settings</span>
               </Link>
