@@ -1,8 +1,12 @@
+
 // src/lib/firebase.ts
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+
+// NOTE: The 'auth' object from 'firebase/auth' is no longer initialized or exported here.
+// All authentication is now handled by the NextAuth.js service.
+// This client-side configuration is only for Firestore and Storage.
 
 const firebaseConfig = {
   apiKey: "AIzaSyDC6b4jpO2R_WjAn6aiiehgvwyb5lZ5u0w",
@@ -15,8 +19,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export { app, auth, db, storage };
+export { app, db, storage };
