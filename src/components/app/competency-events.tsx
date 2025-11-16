@@ -7,16 +7,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '../ui/badge';
-import { BookCheck, Gamepad2, Sparkles, Target } from 'lucide-react';
+import { AlertCircle, BookCheck, Gamepad2, Sparkles, Target } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { Alert, AlertDescription } from '../ui/alert';
 
 const questImages = PlaceHolderImages.filter((img) => img.id.startsWith('quest'));
 
 export function CompetencyEvents() {
-  const { events, isPending, generateEvents } = useCbeStore();
+  const { events, isPending, error, generateEvents } = useCbeStore();
 
   const handleGenerateEvents = () => {
     generateEvents({
@@ -47,6 +48,12 @@ export function CompetencyEvents() {
         </div>
       </CardHeader>
       <CardContent>
+        {error && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
         <Tabs defaultValue="realm">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="realm"><Gamepad2 className="mr-2"/>Skillforge Realm</TabsTrigger>
@@ -101,7 +108,7 @@ export function CompetencyEvents() {
                   </Card>
                 )
               })}
-              {!isPending && !events && (
+              {!isPending && !events && !error && (
                 <div className="col-span-full flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 py-12 text-center">
                   <p className="text-muted-foreground">Click &quot;Generate New Events&quot; to discover your path.</p>
                 </div>
@@ -142,7 +149,7 @@ export function CompetencyEvents() {
                     </TableCell>
                   </TableRow>
                 ))}
-                {!isPending && !events && (
+                {!isPending && !events && !error && (
                     <TableRow>
                         <TableCell colSpan={4} className="h-24 text-center">
                             No events generated yet.

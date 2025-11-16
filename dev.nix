@@ -5,13 +5,18 @@ pkgs.mkShell {
   packages = [
     pkgs.docker
     # Include other necessary development tools here
-    pkgs.nodejs-20_x
-    pkgs.patch-package
+    pkgs.nodejs-18_x
+    pkgs.protobuf
+    pkgs.go
+    pkgs.python3
+    pkgs.python3Packages.grpcio-tools
+    pkgs.protoc-gen-go
+    pkgs.protoc-gen-go-grpc
   ];
 
   # Setup necessary environment variables or initialization commands
   shellHook = ''
     # This section can be used to start services or set variables.
-    echo "Nix environment with Docker is ready."
+    echo "Nix environment with Docker, Go, and Python is ready."
   '';
 }

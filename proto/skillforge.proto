@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package skillforge;
+
+option go_package = "./skillforge";
+
+// The Talos Agent service, responsible for handling user queries and interacting with other services.
+service TalosAgent {
+  // Receives a user query and returns a response.
+  rpc Query(QueryRequest) returns (QueryResponse);
+}
+
+// The Skillforge Engine service, responsible for managing CBEs.
+service SkillforgeEngine {
+  // Requests a CBE based on user data.
+  rpc GetCbe(CbeRequest) returns (CbeResponse);
+}
+
+// The request message containing the user's query.
+message QueryRequest {
+  string user_id = 1;
+  string query = 2;
+}
+
+// The response message containing the Talos Agent's response.
+message QueryResponse {
+  string response = 1;
+}
+
+// The request message for a CBE.
+message CbeRequest {
+  string user_id = 1;
+  repeated string user_skills = 2;
+  string learning_goals = 3;
+  string profession_tag = 4;
+}
+
+// The response message containing the CBE.
+message CbeResponse {
+  string academic_objective = 1;
+  string quest_objective = 2;
+  string assessment_method = 3;
+  float karmic_impact = 4;
+  string target_skill = 5;
+}
