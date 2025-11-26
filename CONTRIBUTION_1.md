@@ -16,7 +16,7 @@ Intellectual Property (IP): Contributors retain their IP rights, and all code is
 
 2. Contributor Compensation (Incentivized Model)
 
-The Skillforge Prime project operates on an incentivized model. While compensation is not a legal guarantee under the MIT license, we utilize a transparent, merit-based system to reward value.
+The Skillforge Prime project operates on an incentivized model. While compensation is not a legal guarantee under the MIT license, we utilize a transparent, merit-based system to reward value. (See CONTRIBUTIONS.md)
 
 A. Bounty and Token Rewards
 
