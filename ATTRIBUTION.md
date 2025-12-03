@@ -1,7 +1,7 @@
 
 # ATTRIBUTION AND PROJECT HISTORY
 
-This document clarifies the conceptual history and attribution for the Talosopolis platform (repository name: Talos-Skillforge_prime).
+This document clarifies the conceptual history and attribution for the SkillForge Prime platform (repository name: Skillforge_prime).
 
 ## 1. Conceptual Origin and Inspiration
 
@@ -17,7 +17,7 @@ We acknowledge and respect the foundation laid by the original creator(s) in pub
 
 ## 2. Codebase Status (Clean-Room Implementation)
 
-The entire codebase for **Talosopolis (Talos-Skillforge_prime)** is an original, **100% clean-room implementation** and rewrite developed by The Promethean Society.
+The entire codebase for **Talosopolis (Skillforge_prime)** is an original, **100% clean-room implementation** and rewrite developed by The Promethean Society.
 
 * **Technology Stack:** Our current codebase uses a modern Next.js/TypeScript/JavaScript stack.
 * **No Code Reuse:** No code, files, or specific non-functional structures were copied, modified, or merged from the original Python/Flask-based Athenos project or any intermediate projects (e.g., Athenos-Next).
@@ -25,6 +25,6 @@ The entire codebase for **Talosopolis (Talos-Skillforge_prime)** is an original,
 
 ## 3. Name Separation
 
-Our current project name, **Talosopolis**, has been chosen to eliminate any potential confusion in the marketplace with the original "Athenos" project name or any derivative names (like the deprecated "Athenos-Next").
+Our current project name, **SkillForge Prime**, has been chosen to eliminate any potential confusion in the marketplace with the original "Athenos" project name or any derivative names (like the deprecated "Athenos-Next", "Talos", "Talosopolis", etc...).
 
 This statement serves as a formal, good-faith attribution and clarification of the distinct nature of the underlying code base.
